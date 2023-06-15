@@ -11,7 +11,7 @@ public class MemberRepository {
     private static final Map<Long, Member> store = new HashMap<>();
     private static Long sequence = 0L;
 
-    public Member save(Member member){
+    public Member save(Member member) {
         member.setId(sequence++);
         store.put(member.getId(), member);
         log.info("Member Save = {}", member);
@@ -22,7 +22,7 @@ public class MemberRepository {
         return store.get(id);
     }
 
-    public List<Member> findAll(){
+    public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
 
@@ -30,5 +30,9 @@ public class MemberRepository {
         return findAll().stream()
                 .filter(member -> member.getLoginId().equals(loginId))
                 .findAny();
+    }
+
+    public void restore() {
+        store.clear();
     }
 }
